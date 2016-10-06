@@ -1,0 +1,14 @@
+---
+- hosts: all
+
+  tasks:
+  - copy: src=./api.py dest=/home/vagrant/api.py owner=vagrant group=vagrant
+  - copy: src=./tests.sh dest=/home/vagrant/tests.sh owner=vagrant group=vagrant mode=0755
+  - copy: src=./data.json dest=/home/vagrant/data.json owner=vagrant group=vagrant
+  - pip: name=flask_pymongo
+
+  roles:
+    - geerlingguy.repo-epel
+    - wtanaka.pip
+    - { role: d4rkstar.mongodb }
+    - { role: andrewrothstein.flask, flask_ver: '0.11.1' }
